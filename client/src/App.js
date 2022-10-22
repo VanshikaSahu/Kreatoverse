@@ -15,17 +15,17 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route path="/log-in" element={<LoginComponent />} />
-        <Route path="/" element={<Outlet />} >
+        <Route path="/" element={<Outlet/>} >
             <Route path="/vendors" element={<Outlet />} >
               <Route path="" element={<VendorList />} />
               <Route path=":id" element={<VendorDetails />} />
               <Route path="create" element={<CreateVendor/>} />
             </Route>
 
-            <Route path="/products" element={<Outlet />} >
+            {/* <Route path="/products" element={<Outlet />} >
               <Route path="" element={<ProductList />} />
               <Route path="create" element={<CreateProduct/>} />
-            </Route>
+            </Route> */}
         </Route>
         </Routes>
       </BrowserRouter>

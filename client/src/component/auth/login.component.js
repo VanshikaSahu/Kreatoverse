@@ -4,9 +4,9 @@ import React, { useState } from 'react'
 const LoginComponent = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const Login = () =>{
+  const Login = async() =>{
       const loginDetails = {email, password}
-      const data = Axios.post("http://localhost:9000/admin-login", loginDetails)
+      const data = await Axios.post("http://localhost:9000/admin-login", loginDetails)
       console.log(data)
   }
   return (

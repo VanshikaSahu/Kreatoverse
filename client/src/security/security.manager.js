@@ -15,9 +15,9 @@ export const SecurityManager = {
         }
     },
 
-    // setSession(session: Session) {
-    //     localStorage.setItem(ADMIN_SESSION, JSON.stringify(session))
-    // },
+    setSession(session) {
+        localStorage.setItem(ADMIN_SESSION, JSON.stringify(session))
+    },
 
     // getToken: (): string => {
     //     const session = JSON.parse(localStorage.getItem(ADMIN_SESSION) || '{}') as Session
@@ -37,12 +37,12 @@ export const SecurityManager = {
     //     }
     // },
 
-    // logout() {
-    //     try {
-    //         localStorage.removeItem(ADMIN_SESSION)
-    //         window.location.reload()
-    //     } catch (err) {
-    //         console.error(err)
-    //     }
-    // }
+    logout() {
+        try {
+            localStorage.removeItem(ADMIN_SESSION)
+            window.location.reload()
+        } catch (err) {
+            console.error(err)
+        }
+    }
 }

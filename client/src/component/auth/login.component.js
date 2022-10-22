@@ -1,17 +1,38 @@
 import Axios from 'axios'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { SecurityManager } from '../../security/security.manager'
 
 const LoginComponent = () => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const Login = async() =>{
       const loginDetails = {email, password}
-      const data = await Axios.post("http://localhost:9000/admin-login", loginDetails)
-      console.log(data)
+      const res = await Axios.post("http://localhost:9000/admin-login", loginDetails)
+      console.log(res.data)
+      if(res.data==="success"){
+        const session = {
+          id:  1,
+          token: "gdjgsjfuweyejsb",
+          loggedIn: true
+        }
+        SecurityManager.setSession(session)
+        if (SecurityManager.loggedIn()) {
+          navigate('/')
+      }
+      }    
   }
+
+  useEffect(() => {
+    if (SecurityManager.loggedIn()) {
+        navigate('/')
+    }
+  })
+
   return (
     <section className="h-full gradient-form bg-gray-200 md:h-screen">
-      <div className="container py-12 px-6 h-full">
+      <div className="py-12 px-6 h-full">
         <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"> 
             <div className="block bg-white shadow-lg rounded-lg">       
                   <div className="md:p-12 md:mx-6">   

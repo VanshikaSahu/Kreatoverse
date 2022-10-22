@@ -1,3 +1,4 @@
+import Axios from 'axios'
 import React, { useState } from 'react'
 import Header from '../header.component'
 
@@ -6,6 +7,12 @@ const CreateVendor = () => {
   const [email, setEmail] = useState("")
   const [phone, setPhone] = useState("")
   const [address, setAddress] = useState("")
+  const createVendor = async() =>{
+    const vendorDetails = {name, email, phone, address}
+    const res = await Axios.post("http://localhost:9000/create-vendor", vendorDetails)
+    console.log(res.data)
+    }    
+  
   return (
     <section className="h-full gradient-form bg-gray-200 md:h-screen">
       <Header/>
@@ -21,7 +28,7 @@ const CreateVendor = () => {
                         className="form-control block w-full px-3 py-4 text-base font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                         id="exampleFormControlInput1"
                         placeholder="name"
-                        onChange={(e)=>{setEmail(e.target.value)}}
+                        onChange={(e)=>{setName(e.target.value)}}
                       />
                     </div>
                     <div className="mb-4">
@@ -55,6 +62,7 @@ const CreateVendor = () => {
                       <button
                         className="inline-block px-6 py-4 font-medium text-xs leading-tight uppercase rounded shadow-md bg-gray-300 hover:bg-gray-400 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
                         type="button"
+                        onClick={createVendor}
                         
                       >
                         Create vendor

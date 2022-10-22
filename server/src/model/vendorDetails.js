@@ -10,7 +10,7 @@ const vendorDetailsSchema = new mongoose.Schema({
         required: true
     },
     phoneNumber:{
-        type: number,
+        type: Number,
         required: true
     },
     address:{
@@ -22,6 +22,6 @@ const vendorDetailsSchema = new mongoose.Schema({
 
 })
 
-const Vendor = mongoose.model('vendor', vendorDetailsSchema )
+const Vendor = mongoose.model('vendor', vendorDetailsSchema)
 
 module.exports = Vendor

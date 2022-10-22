@@ -11,17 +11,18 @@ const CreateVendor = () => {
     const vendorDetails = {name, email, phone, address}
     const res = await Axios.post("http://localhost:9000/create-vendor", vendorDetails)
     console.log(res.data)
-    }    
+    }  
+    const adminButtons= [{name: "View Vendors", redirectionLink: "/vendors"}, {name: "Create Vendors", redirectionLink: "/vendors/create"}]  
   
   return (
     <section className="h-full gradient-form bg-gray-200 md:h-screen">
-      <Header/>
+      <Header name="Admin Portal" buttons={adminButtons}/>
     <div className="px-6 h-full">
       <div className="flex justify-center items-center flex-wrap h-full g-6 text-gray-800"> 
           <div className="block bg-white w-2/5 shadow-lg rounded-lg">       
                 <div className="md:p-12 md:mx-6">   
                   <form>
-                    <p className="mb-4">Please enter vendor details</p>
+                    <p className="mb-4">Please enter Vendor details</p>
                     <div className="mb-4">
                       <input
                         type="text"

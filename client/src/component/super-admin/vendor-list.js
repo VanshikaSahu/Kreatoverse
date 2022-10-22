@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { VendorStore } from '../../store/vendor.store'
 import Header from '../header.component'
 
-const VendorList = () => {
+const VendorList = (props) => {
   const navigate = useNavigate()
   const [vendors,setVendors] = useState([])
   useEffect(()=>{
@@ -21,10 +21,11 @@ const VendorList = () => {
     VendorStore.setVendor(vendor)
     navigate(`/vendors/${vendor._id}`)
 }
+const adminButtons= [{name: "View Vendors", redirectionLink: "/vendors"}, {name: "Create Vendors", redirectionLink: "/vendors/create"}]  
 
   return (
     <div>
-      <Header/>
+      <Header name="Admin Portal" buttons={adminButtons}/>
       <div className="overflow-x-auto relative pl-2 mt-10 mx-8">
             <table className="table-auto w-full text-sm border-purple-800 border-x-[1px] border-t-[1px]">
                 <thead className="">

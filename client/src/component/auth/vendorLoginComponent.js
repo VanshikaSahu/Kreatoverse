@@ -2,6 +2,7 @@ import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SecurityManager } from '../../security/security.manager'
+import { VendorStore } from '../../store/vendor.store'
 
 const VendorLoginComponent = () => {
   const navigate = useNavigate()
@@ -10,8 +11,9 @@ const VendorLoginComponent = () => {
   const Login = async() =>{
       const loginDetails = {email, password}
       const res = await Axios.post("http://localhost:9000/vendor-login", loginDetails)
-      console.log(res.data)
-      if(res.data==="success"){
+      console.log(res)
+      if(res.data.status==="success"){
+        VendorStore.setVendor(res.data.data)
         const session = {
           id:  1,
           token: "gdjgsjfuweyejsb",
@@ -19,14 +21,14 @@ const VendorLoginComponent = () => {
           adminloggedIn: false
         }
         SecurityManager.setSession(session)
-        if (SecurityManager.loggedIn()) {
+        if (SecurityManager.vendorloggedIn()) {
           navigate('/vendor-products')
       }
       }    
   }
 
   useEffect(() => {
-    if (SecurityManager.loggedIn()) {
+    if (SecurityManager.vendorloggedIn()) {
         navigate('/vendor-products')
     }
   })

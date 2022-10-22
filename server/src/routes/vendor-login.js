@@ -7,9 +7,10 @@ router.post("/", async(req, res)=>{
     try {
         const email = req.body.email
         const password = req.body.password
-        const vendor = await Admin.findOne({email})
+        console.log(email)
+        const vendor = await Vendor.findOne({email})
         if(vendor.password === password){
-            res.status(201).send("success")
+            res.status(201).send({status: "success", data: vendor})
         }else{
             res.send("Please enter correct userId or password")
         }

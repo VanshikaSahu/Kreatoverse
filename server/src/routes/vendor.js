@@ -12,7 +12,8 @@ router.post("/", async(req, res)=>{
             email: req.body.email,
             phoneNumber: req.body.phone,
             address: req.body.address,
-            password: password
+            password: password,
+            products:[]
           });
           const email = req.body.email
         const findVendor = await Vendor.findOne({email})
@@ -57,6 +58,19 @@ router.get("/", async(req, res)=>{
         
     }
 })
+
+router.get("/:id", async(req, res)=>{
+    try {
+        const _id = req.params.id
+        const vendor = await Vendor.findOne({_id})
+        console.log(vendor)
+        res.send(vendor)
+    } catch (err) {
+        console.log(err)
+    }
+})
+
+
 
  
 module.exports = router;

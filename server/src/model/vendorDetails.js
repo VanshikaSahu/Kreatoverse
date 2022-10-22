@@ -22,7 +22,7 @@ const vendorDetailsSchema = new mongoose.Schema({
         type:String,
     },
     products:{
-        type: {},
+        type: [{name:String, category:String, price:String}],
     },
 
 })

@@ -1,8 +1,11 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { VendorStore } from '../../store/vendor.store'
 import Header from '../header.component'
 
 const VendorList = () => {
+  const navigate = useNavigate()
   const [vendors,setVendors] = useState([])
   useEffect(()=>{
     fetchVendors()
@@ -12,6 +15,13 @@ const VendorList = () => {
     const res = await Axios.get("http://localhost:9000/get-vendors")
     setVendors(res.data)
   }
+
+  const goToEdit = (vendor) => {
+    console.log(vendor)
+    VendorStore.setVendor(vendor)
+    navigate(`/vendors/${vendor._id}`)
+}
+
   return (
     <div>
       <Header/>
@@ -46,7 +56,7 @@ const VendorList = () => {
                               {vendor.phoneNumber}
                             </th>
                             <th scope="row" className="py-6 px-6 font-medium whitespace-nowrap border-l border-purple-800">
-                              <button className='bg-purple-300 p-6 px-8 rounded-2xl'>View Details</button>
+                              <button className='bg-purple-300 p-6 px-8 rounded-2xl' onClick ={()=>{goToEdit(vendor)}}>View Details</button>
                             </th>
                         </tr>
                     })}  

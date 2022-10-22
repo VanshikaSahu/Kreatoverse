@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Product = require('./product')
 
 const vendorDetailsSchema = new mongoose.Schema({
     name:{
@@ -7,7 +8,8 @@ const vendorDetailsSchema = new mongoose.Schema({
     },
     email:{
         type: String,
-        required: true
+        required: true,
+        unique:true
     },
     phoneNumber:{
         type: Number,
@@ -17,7 +19,7 @@ const vendorDetailsSchema = new mongoose.Schema({
         type: String,
     },
     products:{
-        type: String,
+        type: {},
     },
 
 })

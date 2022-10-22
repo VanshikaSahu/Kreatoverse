@@ -16,8 +16,9 @@ function App() {
         <Routes>
         <Route path="/log-in" element={<LoginComponent />} />
         <Route path="/" element={<PrivateRoute component={MainComponent} />} />
-        <Route path="/vendor" element={<VendorList/>} />
         
+        <Route path="" />
+
         <Route path="/vendors" element={<PrivateRoute component={Outlet} />} >
           <Route path="" element={<VendorList />} />
           <Route path=":id" element={<VendorDetails />} />

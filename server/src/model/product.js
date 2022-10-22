@@ -10,8 +10,8 @@ const ProductSchema = new mongoose.Schema({
         required: true,
         unique:true
     },
-    price:{
-        type: number,
+    price:{ 
+        type: Number,
         required: true
     },
     category:{

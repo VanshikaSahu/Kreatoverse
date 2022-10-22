@@ -5,5 +5,5 @@ module.exports = function(app) {
     
     app.use("/admin-login", adminLoginRouter);
     app.use("/create-vendor", vendorRouter);
-    app.use("/get-vendors", vendorRouter)
+    app.use("/get-vendors", vendorRouter);
 }

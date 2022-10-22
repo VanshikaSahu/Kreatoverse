@@ -3,30 +3,31 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { SecurityManager } from '../../security/security.manager'
 
-const LoginComponent = () => {
+const VendorLoginComponent = () => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const Login = async() =>{
       const loginDetails = {email, password}
-      const res = await Axios.post("http://localhost:9000/admin-login", loginDetails)
+      const res = await Axios.post("http://localhost:9000/vendor-login", loginDetails)
       console.log(res.data)
       if(res.data==="success"){
         const session = {
           id:  1,
           token: "gdjgsjfuweyejsb",
-          loggedIn: true
+          vendorloggedIn: true,
+          adminloggedIn: false
         }
         SecurityManager.setSession(session)
         if (SecurityManager.loggedIn()) {
-          navigate('/')
+          navigate('/vendor-products')
       }
       }    
   }
 
   useEffect(() => {
     if (SecurityManager.loggedIn()) {
-        navigate('/')
+        navigate('/vendor-products')
     }
   })
 
@@ -84,5 +85,5 @@ const LoginComponent = () => {
   )
 }
 
-export default LoginComponent
+export default VendorLoginComponent
 

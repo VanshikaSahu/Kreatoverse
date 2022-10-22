@@ -6,11 +6,13 @@ const router = express.Router()
 
 router.post("/", async(req, res)=>{
     try {
+        const password = require('../utils/passwordGenerator')()
         const vendor = new Vendor({
             name: req.body.name,
             email: req.body.email,
             phoneNumber: req.body.phone,
-            address: req.body.address
+            address: req.body.address,
+            password: password
           });
           const email = req.body.email
         const findVendor = await Vendor.findOne({email})
@@ -28,8 +30,8 @@ router.post("/", async(req, res)=>{
             let mailDetails = {
                 from: 'vanshikasahu0@gmail.com',
                 to: 'vanshikasahu0@gmail.com',
-                subject: 'Test mail',
-                text: 'Password: 123456'
+                subject: 'Vendor login details',
+                text: `Your password for logging the vendor portal is ${password}`
             };
             mailTransporter.sendMail(mailDetails, function(err, data) {
                 if(err) {

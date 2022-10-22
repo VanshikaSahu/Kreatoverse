@@ -18,6 +18,9 @@ const vendorDetailsSchema = new mongoose.Schema({
     address:{
         type: String,
     },
+    password:{
+        type:String,
+    },
     products:{
         type: {},
     },

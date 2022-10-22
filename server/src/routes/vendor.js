@@ -1,6 +1,6 @@
 const express = require('express')
 const Vendor = require('../model/vendorDetails')
-
+const nodemailer = require('nodemailer');
 
 const router = express.Router()
 
@@ -18,7 +18,27 @@ router.post("/", async(req, res)=>{
             res.send("Vendor already exist")
         }else{
             const done = await vendor.save()
-            console.log(done)
+            let mailTransporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'vanshikasahu0@gmail.com',
+                    pass: 'ytvjpxerfljaqpyu'
+                }
+            });
+            let mailDetails = {
+                from: 'vanshikasahu0@gmail.com',
+                to: 'vanshikasahu0@gmail.com',
+                subject: 'Test mail',
+                text: 'Password: 123456'
+            };
+            mailTransporter.sendMail(mailDetails, function(err, data) {
+                if(err) {
+                    console.log(err)
+                    console.log('Error Occurs');
+                } else {
+                    console.log('Email sent successfully');
+                }
+            });
             res.send("created vendor successfully")
         }
     } catch (err) {

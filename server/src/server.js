@@ -7,7 +7,7 @@ const DB = process.env.DATABASE_URL
 
 mongoose.connect(DB).then(()=>{
     console.log("connection successfull")
-}).catch((err)=>{console.log("no connection")})
+}).catch((err)=>{console.log(err)})
 
 const cors = require('cors');
 app.use(cors({

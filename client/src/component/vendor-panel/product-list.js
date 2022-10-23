@@ -1,27 +1,29 @@
 import  Axios  from 'axios'
 import React, { useEffect, useState } from 'react'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { ProductStore } from '../../store/product.store'
 import { VendorStore } from '../../store/vendor.store'
 import Header from '../header.component'
 
 const ProductList = () => {
-  const vendorButtons= [{name: "View Products", redirectionLink: "/vendor-products"}, {name: "Create Products", redirectionLink: "/vendor-products/create"}] 
+  const navigate = useNavigate()
+  const params = useParams();
   const [products, setProducts] = useState([])
+  const vendorButtons= [{name: "View Products", redirectionLink: `/vendor-products/${params.id}`}, {name: "Create Products", redirectionLink: `/vendor-products/${params.id}/create`}]
+  
   
   useEffect(()=>{
-    console.log("lkhgjhfhgfc")
-    const _vendor = VendorStore.getVendor()
-    console.log(_vendor)
-    if(_vendor._id && _vendor._id.length>0){
-      getVendor(_vendor)
-      console.log(_vendor)
-    }
-  },[]) 
+    getVendorProducts(params.id)
+  },[])
 
-  const getVendor = async(vendor) =>{
-    console.log("jhjh")
-   const  _vendor = await Axios.get(`http://localhost:9000/get-vendors/${vendor._id}`)
-   console.log(_vendor.data,"jgjgg")
-    setProducts(_vendor.data.products)
+  const getVendorProducts = async(id) =>{
+    const res = await Axios.get(`http://localhost:9000/vendor/get-products/${id}`)
+    setProducts(res.data)
+  }
+
+  const gotToEdit = (product) =>{
+    ProductStore.setProduct(product)
+    navigate(`update`)
   }
 
   return (
@@ -59,7 +61,7 @@ const ProductList = () => {
                         {product.category}
                       </th>
                       <th scope="row" className="py-6 px-6 font-medium whitespace-nowrap border-l border-purple-800">
-                        <button className='bg-purple-300 p-6 px-8 rounded-2xl' >View Details</button>
+                        <button onClick={()=>{gotToEdit(product)}} className='bg-purple-300 p-6 px-8 rounded-2xl' >View Details</button>
                       </th>
                   </tr>
               })}  

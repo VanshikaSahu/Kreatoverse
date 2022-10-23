@@ -11,9 +11,7 @@ const VendorLoginComponent = () => {
   const Login = async() =>{
       const loginDetails = {email, password}
       const res = await Axios.post("http://localhost:9000/vendor-login", loginDetails)
-      console.log(res)
       if(res.data.status==="success"){
-        VendorStore.setVendor(res.data.data)
         const session = {
           id:  1,
           token: "gdjgsjfuweyejsb",
@@ -22,16 +20,10 @@ const VendorLoginComponent = () => {
         }
         SecurityManager.setSession(session)
         if (SecurityManager.vendorloggedIn()) {
-          navigate('/vendor-products')
+          navigate(`/vendor-products/${res.data.data._id}`)
       }
       }    
   }
-
-  useEffect(() => {
-    if (SecurityManager.vendorloggedIn()) {
-        navigate('/vendor-products')
-    }
-  })
 
   return (
     <section className="h-full gradient-form bg-gray-200 md:h-screen">

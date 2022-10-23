@@ -5,10 +5,9 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    ID:{
+    vendorID:{
         type: String,
         required: true,
-        unique:true
     },
     price:{ 
         type: Number,

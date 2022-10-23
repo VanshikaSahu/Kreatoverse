@@ -13,7 +13,6 @@ router.post("/", async(req, res)=>{
             phoneNumber: req.body.phone,
             address: req.body.address,
             password: password,
-            products:[]
           });
           const email = req.body.email
         const findVendor = await Vendor.findOne({email})

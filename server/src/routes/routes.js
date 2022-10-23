@@ -9,6 +9,9 @@ module.exports = function(app) {
     app.use("/vendor-login", vendorLoginRouter)
     app.use("/create-vendor", vendorRouter);
     app.use("/get-vendors", vendorRouter);
-    app.use("/create-product", productRouter)
+    app.use("/vendor/create-product", productRouter);
+    app.use("/vendor/get-products", productRouter)
+    app.use("/vendor/update-product", productRouter)
+    app.use("/vendor/delete-product", productRouter)
 
 }

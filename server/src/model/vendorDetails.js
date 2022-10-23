@@ -21,10 +21,6 @@ const vendorDetailsSchema = new mongoose.Schema({
     password:{
         type:String,
     },
-    products:{
-        type: [{name:String, category:String, price:String}],
-    },
-
 })
 
 const Vendor = mongoose.model('vendor', vendorDetailsSchema)

@@ -9,6 +9,7 @@ import VendorDetails from "./component/super-admin/vendor-details";
 import VendorList from "./component/super-admin/vendor-list";
 import CreateProduct from "./component/vendor-panel/create-product";
 import ProductList from "./component/vendor-panel/product-list";
+import UpdateProduct from "./component/vendor-panel/update-product";
 import PrivateRoute from "./security/PrivateRoute";
 
 function App() {
@@ -29,9 +30,10 @@ function App() {
           <Route path="create" element={<CreateVendor/>} />
         </Route>
 
-            <Route path="/vendor-products" element={<PrivateRoute component={Outlet} />} >
+            <Route path="/vendor-products/:id" element={<PrivateRoute component={Outlet} />} >
               <Route path="" element={<ProductList />} />
               <Route path="create" element={<CreateProduct/>} />
+              <Route path="update" element={<UpdateProduct/>}/>
             </Route>
         </Routes>
       </BrowserRouter>

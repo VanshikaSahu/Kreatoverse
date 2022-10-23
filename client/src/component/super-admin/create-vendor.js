@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { SERVER_URL } from '../../constant/base.constant'
 import Header from '../header.component'
 
 const CreateVendor = () => {
@@ -30,7 +31,7 @@ const CreateVendor = () => {
       return
     }
     const vendorDetails = {name, email, phone, address}
-    const res = await Axios.post("http://localhost:9000/create-vendor", vendorDetails)
+    const res = await Axios.post(`${SERVER_URL}/create-vendor`, vendorDetails)
     if(res.data.status ==="error"){
       setMessage(res.data.message)
       setTimeout(()=>{

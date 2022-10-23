@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
+import { SERVER_URL } from '../../constant/base.constant'
 import Header from '../header.component'
 
 const CreateProduct = () => {
@@ -20,7 +21,7 @@ const CreateProduct = () => {
       return
     }
     const productDetails = {name, price, category, vendorID: params.id}
-    const res = await Axios.post(`http://localhost:9000/vendor/create-product`, productDetails)
+    const res = await Axios.post(`${SERVER_URL}/vendor/create-product`, productDetails)
     setMessage(res.data.message)
     setTimeout(()=>{
       setMessage("")

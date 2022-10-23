@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { SERVER_URL } from '../../constant/base.constant'
 import { SecurityManager } from '../../security/security.manager'
 
 const VendorLoginComponent = () => {
@@ -20,7 +21,7 @@ const VendorLoginComponent = () => {
       return 
     }
       const loginDetails = {email, password}
-      const res = await Axios.post("http://localhost:9000/vendor-login", loginDetails)
+      const res = await Axios.post(`${SERVER_URL}/vendor-login`, loginDetails)
       if(res.data.status==="error"){
         setMessage(res.data.message)
         setTimeout(() => {

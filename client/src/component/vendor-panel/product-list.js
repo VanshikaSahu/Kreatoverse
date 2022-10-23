@@ -1,6 +1,7 @@
 import  Axios  from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { SERVER_URL } from '../../constant/base.constant'
 import { ProductStore } from '../../store/product.store'
 import { VendorStore } from '../../store/vendor.store'
 import Header from '../header.component'
@@ -16,7 +17,7 @@ const ProductList = () => {
   },[])
 
   const getVendorProducts = async(id) =>{
-    const res = await Axios.get(`http://localhost:9000/vendor/get-products/${id}`)
+    const res = await Axios.get(`${SERVER_URL}/vendor/get-products/${id}`)
     setProducts(res.data)
   }
 

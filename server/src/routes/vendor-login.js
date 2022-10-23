@@ -12,10 +12,10 @@ router.post("/", async(req, res)=>{
         if(vendor.password === password){
             res.status(201).send({status: "success", data: vendor})
         }else{
-            res.send("Please enter correct userId or password")
+            res.send({status: "error", message: "Please enter correct userId or password"})
         }
     } catch (err) {
-        res.send("vendor email not found")
+        res.send({status: "error", message:"vendor email not found"})
     }
 })
 

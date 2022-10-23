@@ -2,6 +2,19 @@ import { ADMIN_SESSION } from "../constant/base.constant"
 
 export const SecurityManager = {
 
+    loggedIn: () => {
+        try {
+            const session = JSON.parse(localStorage.getItem(ADMIN_SESSION) || '') 
+            if (session && session.token.length > 0 && session.loggedIn) {
+                return true
+            } else {
+                return false
+            }
+        } catch (err) {
+            return false
+        }
+    },
+
     vendorloggedIn: () => {
         try {
             const session = JSON.parse(localStorage.getItem(ADMIN_SESSION) || '') 

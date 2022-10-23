@@ -1,24 +1,31 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { VendorStore } from '../../store/vendor.store'
+import { useNavigate, useParams } from 'react-router-dom'
 import Header from '../header.component'
 
 const CreateProduct = () => {
+  const navigate = useNavigate()
   const [name, setName] = useState("")
   const [price, setPrice] = useState("")
   const [category, setCategory] = useState("")
-  const [vendor, setVendor] = useState([])
+  const [message, setMessage] = useState("")
   const params = useParams();
   
-  useEffect(()=>{
-    console.log(params.id)
-  },[]) 
-  
   const createProduct= async() =>{
+    if(name==="" || price=== "" || category===""){
+      setMessage("Please fill all the details to create product")
+      setTimeout(()=>{
+        setMessage("")
+      }, 3000)
+      return
+    }
     const productDetails = {name, price, category, vendorID: params.id}
-    console.log(productDetails)
     const res = await Axios.post(`http://localhost:9000/vendor/create-product`, productDetails)
+    setMessage(res.data.message)
+    setTimeout(()=>{
+      setMessage("")
+    }, 3000)
+    navigate(`/vendor-products/${params.id}`)
   }  
   const vendorButtons= [{name: "View Products", redirectionLink: `/vendor-products/${params.id}`}, {name: "Create Products", redirectionLink: `/vendor-products/${params.id}/create`}]  
   
@@ -30,7 +37,7 @@ const CreateProduct = () => {
             <div className="block bg-white w-2/5 shadow-lg rounded-lg">       
                   <div className="md:p-12 md:mx-6">   
                     <form>
-                      <p className="mb-4">Please enter product details</p>
+                      <p className="mb-4 text-purple-500">Please enter product details</p>
                       <div className="mb-4">
                         <input
                           type="text"
@@ -61,7 +68,7 @@ const CreateProduct = () => {
                       
                       <div className="text-center pt-1 mb-12 pb-1">
                         <button
-                          className="inline-block px-6 py-4 font-medium text-xs leading-tight uppercase rounded shadow-md bg-gray-300 hover:bg-gray-400 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
+                          className="inline-block px-6 py-4 font-medium text-xs leading-tight uppercase rounded shadow-md bg-blue-400 hover:bg-blue-500 hover:shadow-lg focus:shadow-lg focus:outline-none focus:ring-0 active:shadow-lg transition duration-150 ease-in-out w-full mb-3"
                           type="button"
                           onClick={createProduct}
                           
@@ -69,7 +76,8 @@ const CreateProduct = () => {
                           Create Product
                         </button>
                       </div>
-                    </form>           
+                    </form>  
+                    <div className='text-center text-red-500 text-xl font-bold'>{message}</div>         
                 </div>     
             </div>
         </div>

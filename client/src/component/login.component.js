@@ -1,8 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { SecurityManager } from '../security/security.manager'
 
 const LoginComponent = () => {
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (SecurityManager.loggedIn()) {
+        navigate('/')
+    }
+  })
   return (
     <section className="h-full gradient-form bg-gray-200 md:h-screen">
     <div className="px-6 h-full">

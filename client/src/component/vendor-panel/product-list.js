@@ -10,8 +10,7 @@ const ProductList = () => {
   const params = useParams();
   const [products, setProducts] = useState([])
   const vendorButtons= [{name: "View Products", redirectionLink: `/vendor-products/${params.id}`}, {name: "Create Products", redirectionLink: `/vendor-products/${params.id}/create`}]
-  
-  
+   
   useEffect(()=>{
     getVendorProducts(params.id)
   },[])
@@ -73,7 +72,7 @@ const ProductList = () => {
     {products && products.length===0 &&
     <div>
       <div className='my-4 text-2xl md:text-5xl text-purple-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1'>Currently you have added no products</div>
-      <button className='m-4 text-xl bg-purple-300 p-8 rounded-3xl'>Click here to create Products</button>
+      <button onClick={()=>{navigate(`/vendor-products/${params.id}/create`)}} className='m-4 text-xl bg-purple-300 p-8 rounded-3xl'>Click here to create Products</button>
     </div>
     }
     </div>

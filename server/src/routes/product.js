@@ -11,16 +11,14 @@ router.post("/", async(req, res)=>{
             category: req.body.category,
             vendorID: req.body.vendorID
           });
-          console.log(product)
-        const newProduct = await product.save()       
-
+        const newProduct = await product.save()  
+        res.send({status:"success", message:"product created successfully" })     
     } catch (err) {
-        console.log(err)
-        res.send("Unable to create product")
+        res.send({status:"error", message:"Unable to create product"})
     }
 })
 
-router.post("/:id", async(req, res)=>{
+router.put("/:id", async(req, res)=>{
     try {
         const _id = req.params.id
         const filter = {_id: _id}
@@ -32,14 +30,11 @@ router.post("/:id", async(req, res)=>{
             }
         }
         const product = await Product.updateOne(filter,updateProduct )
-        console.log(product)
+        res.send({status: "success", message:"Product updated successfully"})
     } catch (err) {
-        console.log(err)
-        res.send("Unable to update product")
+        res.send({status: "error", message:"Unable to update product"})
     }
 })
-
-
 
 router.get("/:id", async(req, res)=>{
     try {

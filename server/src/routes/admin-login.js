@@ -11,10 +11,10 @@ router.post("/", async(req, res)=>{
         if(adminemail.password === password){
             res.status(201).send("success")
         }else{
-            res.send("Please enter correct userId or password")
+            res.send({status: "error", message: "Please enter correct userId or password"})
         }
     } catch (err) {
-        res.send("Admin email not found")
+        res.send({status: "error", message: "Admin email not found"})
     }
 })
 

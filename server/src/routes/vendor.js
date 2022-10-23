@@ -17,7 +17,7 @@ router.post("/", async(req, res)=>{
           const email = req.body.email
         const findVendor = await Vendor.findOne({email})
         if(findVendor){
-            res.send("Vendor already exist")
+            res.send({status:"error", message:"Vendor already exist"})
         }else{
             const done = await vendor.save()
             let mailTransporter = nodemailer.createTransport({
@@ -41,11 +41,11 @@ router.post("/", async(req, res)=>{
                     console.log('Email sent successfully');
                 }
             });
-            res.send("created vendor successfully")
+            res.send({status:"success", message:"created vendor successfully"})
         }
     } catch (err) {
         console.log(err)
-        res.send("Unable to create vendor")
+        res.send({status:"error", message:"Unable to create vendor"})
     }
 })
 

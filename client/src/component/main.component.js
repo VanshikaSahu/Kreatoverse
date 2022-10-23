@@ -17,7 +17,7 @@ const MainComponent = (props) => {
           </div>
           <div className="flex w-1/2 justify-end content-center">		
               {buttons.map(button=>{
-                return <button onClick={()=>{navigate(button.redirectionLink)}} className='p-16 rounded-lg mr-5 bg-gray-300 hover:bg-gray-400 hover:shadow-lg font-bold text-lg'>{button.name}</button>
+                return <button onClick={()=>{navigate(button.redirectionLink)}} className='p-16 rounded-lg mr-5 bg-gray-300 hover:bg-gray-400 hover:shadow-lg font-bold text-lg'>Click here to {button.name}</button>
               })}
             </div>  
 

@@ -1,30 +1,32 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { Navigate, useNavigate, useParams } from 'react-router-dom'
 import { ProductStore } from '../../store/product.store'
 import Header from '../header.component'
 
 const UpdateProduct = () => {
+  const navigate = useNavigate()
   const [product, setProduct] = useState()
   const params = useParams()
   const [showModal, setShowModal] = useState(false);
   
   useEffect(()=>{
     const _product = ProductStore.getProduct()
-    console.log(_product)
     setProduct(_product)
   },[]) 
   
   const updateProduct= async() =>{
     const productDetails = {name: product.name, price: product.price, category: product.category}
-    const res = await Axios.post(`http://localhost:9000/vendor/update-product/${product._id}`, productDetails)
+    const res = await Axios.put(`http://localhost:9000/vendor/update-product/${product._id}`, productDetails)
+    if(res.data.status ==="success"){
+      navigate(`/vendor-products/${params.id}`)
+    }
   }  
 
   const deleteProduct = async() =>{
-    console.log(product._id)
     const res = await Axios.delete(`http://localhost:9000/vendor/delete-product/${product._id}`)
-    console.log(res)
     setShowModal(false)
+    navigate(`/vendor-products/${params.id}`)
   }
 
   const handleChange= (e) =>{
@@ -32,7 +34,6 @@ const UpdateProduct = () => {
     setProduct((pre) => ({
         ...pre, [name]: value
     }))}
-
 
   const vendorButtons= [{name: "View Products", redirectionLink: `/vendor-products/${params.id}`}, {name: "Create Products", redirectionLink: `/vendor-products/${params.id}/create`}]  
   
@@ -47,7 +48,8 @@ const UpdateProduct = () => {
             <div className="block bg-white w-2/5 shadow-lg rounded-lg">       
                   <div className="md:p-12 md:mx-6">   
                     <form>
-                      <p className="mb-4">Update your product</p>
+                      <p className="mb-4 text-xl font-bold text-purple-500">Update your product</p>
+                      <label className='text-lg font-bold'>Name:</label>
                       <div className="mb-4">
                         <input
                           type="text"
@@ -59,6 +61,7 @@ const UpdateProduct = () => {
                           onChange={(e)=>{handleChange(e)}}
                         />
                       </div>
+                      <label className='text-lg font-bold'>Price:</label>
                       <div className="mb-4">
                         <input
                           type="number"
@@ -70,6 +73,7 @@ const UpdateProduct = () => {
                           onChange={(e)=>{handleChange(e)}}
                         />
                       </div>
+                      <label className='text-lg font-bold'>Category:</label>
                       <div className="mb-4">
                         <input
                           type="text"

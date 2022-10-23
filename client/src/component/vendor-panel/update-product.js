@@ -1,6 +1,7 @@
 import Axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { SERVER_URL } from '../../constant/base.constant'
 import { ProductStore } from '../../store/product.store'
 import Header from '../header.component'
 
@@ -17,15 +18,17 @@ const UpdateProduct = () => {
   
   const updateProduct= async() =>{
     const productDetails = {name: product.name, price: product.price, category: product.category}
-    const res = await Axios.put(`http://localhost:9000/vendor/update-product/${product._id}`, productDetails)
+    const res = await Axios.put(`${SERVER_URL}/vendor/update-product/${product._id}`, productDetails)
     if(res.data.status ==="success"){
+      alert(res.data.message)
       navigate(`/vendor-products/${params.id}`)
     }
   }  
 
   const deleteProduct = async() =>{
-    const res = await Axios.delete(`http://localhost:9000/vendor/delete-product/${product._id}`)
+    const res = await Axios.delete(`${SERVER_URL}/vendor/delete-product/${product._id}`)
     setShowModal(false)
+    alert(res.data.message)
     navigate(`/vendor-products/${params.id}`)
   }
 

@@ -41,8 +41,7 @@ router.get("/:id", async(req, res)=>{
         const id = req.params.id
         const products = await Product.find({vendorID: id})
         res.send(products)
-    } catch (err) {
-        
+    } catch (err) {       
     }
 })
 
@@ -51,15 +50,10 @@ router.delete("/:id", async(req, res)=>{
         const _id = req.params.id
         const filter = {_id: _id}
         const product = await Product.findOneAndDelete(filter)
-        console.log(product)
-        res.send(product)
+        res.send({status: "success", message:"product deleted successfully"})
     } catch (err) {
-        console.log(err)
+        res.send({status: "error", message:"Unable to delete product"})
     }
 })
-
-
-
-
 
 module.exports = router;

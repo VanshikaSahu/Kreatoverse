@@ -45,6 +45,20 @@ export const SecurityManager = {
         localStorage.setItem(ADMIN_SESSION, JSON.stringify(session))
     },
 
+    getVendorId: () => {
+        try {
+            const session = JSON.parse(localStorage.getItem(ADMIN_SESSION) || '') 
+            console.log(session)
+            if (session && session.token.length > 0 && session.vendorId) {
+                return session.vendorId
+            } else {
+                return false
+            }
+        } catch (err) {
+            return false
+        }
+    },
+
     // getToken: (): string => {
     //     const session = JSON.parse(localStorage.getItem(ADMIN_SESSION) || '{}') as Session
     //     if (session && session.token && session.token.length > 0) {

@@ -6,8 +6,10 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     const vendorLogged = SecurityManager.vendorloggedIn();
     const adminLogged = SecurityManager.adminloggedIn();
 
+    const vendorId = SecurityManager.getVendorId()
+
     const adminButtons= [{name: "View Vendors", redirectionLink: "/vendors"}, {name: "Create Vendors", redirectionLink: "/vendors/create"}]
-    const vendorButtons= [{name: "View Products", redirectionLink: "/vendor-products"}, {name: "Create Products", redirectionLink: "/vendor-products/create"}]  
+    const vendorButtons= [{name: "View Products", redirectionLink: `/vendor-products/${vendorId}`}, {name: "Create Products", redirectionLink: `/vendor-products/${vendorId}/create`}]  
 
     return vendorLogged ? <Component name="Vendor Portal" desc="You can create and update your products here" buttons={vendorButtons}/> :adminLogged? <Component name="Admin Portal" desc="You can create vendors and track their activities" buttons ={adminButtons}/>: <Navigate to="/log-in" />;
 }

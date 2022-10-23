@@ -35,11 +35,12 @@ const VendorLoginComponent = () => {
           token: "gdjgsjfuweyejsb",
           loggedIn: true,
           vendorloggedIn: true,
-          adminloggedIn: false
+          adminloggedIn: false,
+          vendorId: res.data.data._id
         }
         SecurityManager.setSession(session)
         if (SecurityManager.vendorloggedIn()) {
-          navigate(`/vendor-products/${res.data.data._id}`)
+          navigate(`/`)
       }
       }    
   }

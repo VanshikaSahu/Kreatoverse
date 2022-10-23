@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { SecurityManager } from '../security/security.manager'
+import { SecurityManager } from '../../security/security.manager'
 
 const LoginComponent = () => {
   const navigate = useNavigate()

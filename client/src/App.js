@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom"
 import AdminLoginComponent from "./component/auth/adminLogin.component";
 import VendorLoginComponent from "./component/auth/vendorLoginComponent";
-import LoginComponent from "./component/login.component";
+import LoginComponent from "./component/auth/login.component";
 import MainComponent from "./component/main.component";
 import CreateVendor from "./component/super-admin/create-vendor";
 import VendorDetails from "./component/super-admin/vendor-details";

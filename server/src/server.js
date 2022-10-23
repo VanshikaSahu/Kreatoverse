@@ -11,7 +11,7 @@ mongoose.connect(DB).then(()=>{
 
 const cors = require('cors');
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: ['http://localhost:3000', 'https://admin-portal-frontend.onrender.com']
 }));
  
 const APP_PORT = process.env.APP_PORT || 8080;

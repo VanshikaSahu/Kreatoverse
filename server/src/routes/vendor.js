@@ -23,13 +23,14 @@ router.post("/", async(req, res)=>{
             let mailTransporter = nodemailer.createTransport({
                 service: 'gmail',
                 auth: {
-                    user: 'vanshikasahu0@gmail.com',
+                    user: "vanshikasahu0@gmail.com",
                     pass: 'ytvjpxerfljaqpyu'
                 }
             });
+            console.log(email)
             let mailDetails = {
-                from: 'vanshikasahu0@gmail.com',
-                to: 'vanshikasahu0@gmail.com',
+                from: "vanshikasahu0@gmail.com",
+                to: email,
                 subject: 'Vendor login details',
                 text: `Your password for logging the vendor portal is ${password}`
             };

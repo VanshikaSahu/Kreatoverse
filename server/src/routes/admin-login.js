@@ -4,7 +4,7 @@ const Admin = require('../model/admin')
 const router = express.Router()
 
 router.post("/", async(req, res)=>{
-    try {
+    try {  
         const email = req.body.email
         const password = req.body.password
         const adminemail = await Admin.findOne({email})

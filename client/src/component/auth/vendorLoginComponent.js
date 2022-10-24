@@ -32,7 +32,7 @@ const VendorLoginComponent = () => {
       if(res.data.status==="success"){
         const session = {
           id:  1,
-          token: "gdjgsjfuweyejsb",
+          token: res.data.accessToken,
           loggedIn: true,
           vendorloggedIn: true,
           adminloggedIn: false,

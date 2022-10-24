@@ -1,9 +1,10 @@
 const express = require('express')
 const Product = require('../model/product')
+const authenticateToken = require('../utils/authenticateToken')
 
 const router = express.Router()
 
-router.post("/", async(req, res)=>{
+router.post("/", authenticateToken, async(req, res)=>{
     try {
         const product = new Product({
             name: req.body.name,
@@ -18,7 +19,7 @@ router.post("/", async(req, res)=>{
     }
 })
 
-router.put("/:id", async(req, res)=>{
+router.put("/:id",authenticateToken, async(req, res)=>{
     try {
         const _id = req.params.id
         const filter = {_id: _id}
@@ -36,7 +37,7 @@ router.put("/:id", async(req, res)=>{
     }
 })
 
-router.get("/:id", async(req, res)=>{
+router.get("/:id", authenticateToken, async(req, res)=>{
     try {
         const id = req.params.id
         const products = await Product.find({vendorID: id})
@@ -45,7 +46,7 @@ router.get("/:id", async(req, res)=>{
     }
 })
 
-router.delete("/:id", async(req, res)=>{
+router.delete("/:id", authenticateToken, async(req, res)=>{
     try {
         const _id = req.params.id
         const filter = {_id: _id}

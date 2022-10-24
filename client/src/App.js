@@ -10,8 +10,10 @@ import CreateProduct from "./component/vendor-panel/create-product";
 import ProductList from "./component/vendor-panel/product-list";
 import UpdateProduct from "./component/vendor-panel/update-product";
 import PrivateRoute from "./security/PrivateRoute";
+import { useHttpIntercepter } from "./security/http.interceptor";
 
 function App() {
+  useHttpIntercepter()
   return (
     <div className="">
       <BrowserRouter>

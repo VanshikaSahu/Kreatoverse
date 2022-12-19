@@ -96,7 +96,7 @@ const MainComponent = (props) => {
           <div className='bg-white w-[20%] h-[85vh] px-12 pt-8'> 
           <div className='mb-4 text-blue-400'>Click on any app to view the statistics(upload, download and usage)</div>
           {apps.map((name)=>{
-            return <div onClick={()=>{getGraph(name)}} className={`p-1.5 border border-black rounded cursor-pointer mb-3 ${selectedApp===name?"bg-indigo-300":""}`}>{name}</div>
+            return <div onClick={()=>{getGraph(name)}} className={`p-1.5 border border-black rounded cursor-pointer mb-3 ${selectedApp===name?"bg-blue-200":""}`}>{name}</div>
           })}
           </div>
           <div className='w-[60%] px-16 p-8'>

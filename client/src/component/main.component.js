@@ -28,30 +28,39 @@ const MainComponent = (props) => {
     let _details = details?details:appdetails
     const _uniqueDates = [...new Set(_details.map((item) => item._id.creationDate))];
     const _uploads = [...new Set(_details.map((item) => item.uploads))];
+    const uploads = _uploads.map((item)=>{
+      return item/(1024)
+    })
     const _downloads = [...new Set(_details.map((item) => item.downloads))];
+    const downloads = _downloads.map((item)=>{
+      return item/(1024)
+    })
     const _useageSeconds =  [...new Set(_details.map((item) => item.useageSeconds))];
+    const useageSeconds = _useageSeconds.map((item)=>{
+      return item/(1024)
+    })
     let data= {
       labels: _uniqueDates,
       datasets: [
         {
-          label: 'uploads',
+          label: 'uploads( in mb)',
           backgroundColor: 'rgba(255,99,132,0.2)',
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
           
           hoverBackgroundColor: 'rgba(255,99,132,0.4)',
           hoverBorderColor: 'rgba(255,99,132,1)',
-          data: _uploads
+          data: uploads
         },
         {
-          label: 'downloads',
+          label: 'downloads(in mb)',
           backgroundColor: 'rgba(155,231,91,0.2)',
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
           
           hoverBackgroundColor: 'rgba(255,99,132,0.4)',
           hoverBorderColor: 'rgba(255,99,132,1)',
-          data: _downloads
+          data: downloads
         },
       ]
     }
@@ -59,14 +68,14 @@ const MainComponent = (props) => {
       labels: _uniqueDates,
       datasets: [
         {
-          label: 'usage seconds',
+          label: 'usage seconds(sec)',
           backgroundColor: 'rgba(155,231,91,0.5)',
           borderColor: 'rgba(255,99,132,1)',
           borderWidth: 1,
           
           hoverBackgroundColor: 'rgba(255,99,132,0.4)',
           hoverBorderColor: 'rgba(255,99,132,1)',
-          data: _useageSeconds
+          data: useageSeconds
         }
       ]
     }
@@ -79,7 +88,7 @@ const MainComponent = (props) => {
   },[])
 
   return (
-      <div className="h-screen pb-14 bg-right bg-cover bg-purple-200">
+      <div className="h-screen pb-14 bg-right bg-cover bg-gray-100">
         <div className="w-full mx-auto">      
          <Header/>
         </div>

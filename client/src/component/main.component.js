@@ -1,27 +1,101 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useState } from 'react'
+import { BarChartComponent } from './bar-chart.component'
 import Header from './header.component'
+import { useEffect } from 'react';
+import Axios from 'axios';
+import { SERVER_URL } from '../constant/base.constant'
 
 const MainComponent = (props) => {
-  const {name, desc, buttons} = props
-  const navigate = useNavigate()
-  return (
-      <div className="h-screen pb-14 bg-right bg-cover bg-blue-300">
-        <div className="w-full mx-auto">      
-         <Header name= {name} buttons={buttons}/>
-        </div>
-        <div className="container pt-24 md:pt-48 px-6 mx-auto flex flex-wrap flex-col md:flex-row items-center">       
-          <div className="flex flex-col w-2/4 justify-center lg:items-start overflow-y-hidden">
-            <h1 className="my-4 text-3xl md:text-5xl text-purple-800 font-bold leading-tight text-center md:text-left slide-in-bottom-h1">Welcome to the {name}</h1>
-            <p className="leading-normal text-base md:text-2xl mb-8 text-center md:text-left slide-in-bottom-subtitle">{desc}</p>
-          </div>
-          <div className="flex w-1/2 justify-end content-center">		
-              {buttons.map(button=>{
-                return <button onClick={()=>{navigate(button.redirectionLink)}} className='p-16 rounded-lg mr-5 bg-gray-300 hover:bg-gray-400 hover:shadow-lg font-bold text-lg'>Click here to {button.name}</button>
-              })}
-            </div>  
 
+  const [appDetails, setAppDetails] = useState([])
+  const [apps, setApps] = useState([])
+  const [data, setData] = useState()
+  const [usageData, setUsageData] = useState()
+  const [selectedApp, setSelectedApp] = useState()
+
+  const getAppDownloads = async() =>{
+    const res = await Axios.get(`${SERVER_URL}/app-downloads`)
+    setAppDetails(res.data)
+    const unique = [...new Set(res.data.map((item) => item._id.hostName))];
+    const details = res.data.filter((item)=>item._id.hostName===unique.sort()[0])
+    getGraph(unique.sort()[0], details)
+      setApps(unique.sort())
+  }
+
+  const getGraph=(name, details)=>{
+    setSelectedApp(name)
+    const appdetails = appDetails.filter((item)=>item._id.hostName===name)
+    let _details = details?details:appdetails
+    const _uniqueDates = [...new Set(_details.map((item) => item._id.creationDate))];
+    const _uploads = [...new Set(_details.map((item) => item.uploads))];
+    const _downloads = [...new Set(_details.map((item) => item.downloads))];
+    const _useageSeconds =  [...new Set(_details.map((item) => item.useageSeconds))];
+    let data= {
+      labels: _uniqueDates,
+      datasets: [
+        {
+          label: 'uploads',
+          backgroundColor: 'rgba(255,99,132,0.2)',
+          borderColor: 'rgba(255,99,132,1)',
+          borderWidth: 1,
+          
+          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+          hoverBorderColor: 'rgba(255,99,132,1)',
+          data: _uploads
+        },
+        {
+          label: 'downloads',
+          backgroundColor: 'rgba(155,231,91,0.2)',
+          borderColor: 'rgba(255,99,132,1)',
+          borderWidth: 1,
+          
+          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+          hoverBorderColor: 'rgba(255,99,132,1)',
+          data: _downloads
+        },
+      ]
+    }
+    let usageData= {
+      labels: _uniqueDates,
+      datasets: [
+        {
+          label: 'usage seconds',
+          backgroundColor: 'rgba(155,231,91,0.5)',
+          borderColor: 'rgba(255,99,132,1)',
+          borderWidth: 1,
+          
+          hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+          hoverBorderColor: 'rgba(255,99,132,1)',
+          data: _useageSeconds
+        }
+      ]
+    }
+    setData(data)
+    setUsageData(usageData)
+  }
+
+  useEffect(()=>{
+    getAppDownloads()
+  },[])
+
+  return (
+      <div className="h-screen pb-14 bg-right bg-cover bg-purple-200">
+        <div className="w-full mx-auto">      
+         <Header/>
         </div>
+        <div className='flex'>
+          <div className='bg-white w-[20%] h-[85vh] px-12 pt-8'> 
+          <div className='mb-4 text-blue-400'>Click on any app to view the statistics(upload, download and usage)</div>
+          {apps.map((name)=>{
+            return <div onClick={()=>{getGraph(name)}} className={`p-1.5 border border-black rounded cursor-pointer mb-3 ${selectedApp===name?"bg-indigo-300":""}`}>{name}</div>
+          })}
+          </div>
+          <div className='w-[60%] px-16 p-8'>
+            <div className='text-5xl mb-10'>{selectedApp?selectedApp:apps[0]}</div>
+           <div className='flex w-[70%]'><BarChartComponent data ={data}/>
+           <BarChartComponent data ={usageData}/></div>
+          </div>
+        </div> 
       </div>
   )
 }

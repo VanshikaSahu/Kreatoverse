@@ -36,9 +36,6 @@ const MainComponent = (props) => {
       return item/(1024)
     })
     const _useageSeconds =  [...new Set(_details.map((item) => item.useageSeconds))];
-    const useageSeconds = _useageSeconds.map((item)=>{
-      return item/(1024)
-    })
     let data= {
       labels: _uniqueDates,
       datasets: [

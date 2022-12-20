@@ -72,7 +72,7 @@ const MainComponent = (props) => {
           
           hoverBackgroundColor: 'rgba(255,99,132,0.4)',
           hoverBorderColor: 'rgba(255,99,132,1)',
-          data: useageSeconds
+          data: _useageSeconds
         }
       ]
     }
